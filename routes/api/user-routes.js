@@ -34,6 +34,15 @@ router.get('/:id', (req, res) => {
         model: Post,
         attributes: ['id', 'title', 'post_url', 'created_at']
       },
+      // Can see on which posts the user commented
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'created_at'],
+        include: {
+          model: Post,
+          attributes: ['title']
+        }
+      },
       {
         model: Post,
         attributes: ['title'],

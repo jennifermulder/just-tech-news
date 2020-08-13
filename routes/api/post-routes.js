@@ -19,6 +19,15 @@ router.get('/', (req, res) => {
     order: [['created_at', 'DESC']],
     //connect to the user model/ include is a JOIN
     include: [
+      // include the Comment model here:
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
       {
         model: User,
         attributes: ['username']
