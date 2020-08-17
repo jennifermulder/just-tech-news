@@ -1,7 +1,7 @@
 //routes to work with User model to perform CRUD operations
 const router = require('express').Router();
 //destructure user, post, and vote from models that were imported
-const { User, Post, Vote } = require('../../models');
+const { User, Post, Vote, Comment } = require('../../models');
 
 // GET accessible at: /api/users
 router.get('/', (req, res) => {
