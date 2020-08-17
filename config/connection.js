@@ -9,7 +9,7 @@ require('dotenv').config();
 // console.log(process.env.DB_NAME, "data base name here", process.env.DB_PW, process.env.DB_USER);
 
 let sequelize;
-//use DB first, if not, use local host
+//use JAWSDB first, if not, use local host
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
