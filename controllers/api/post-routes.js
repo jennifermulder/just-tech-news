@@ -102,13 +102,25 @@ router.post('/', (req, res) => {
 // PUT /api/posts/upvote ***because votes are made on posts 
 router.put('/upvote', (req, res) => {
   // custom static method created in models/Post.js. Pass in Vote model as argument
-  Post.upvote(req.body, { Vote })
-    // send back data from the database that has been modified
-    .then(updatedPostData => res.json(updatedPostData))
-    .catch(err => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+  // Post.upvote(req.body, { Vote })
+  //   // send back data from the database that has been modified
+  //   .then(updatedPostData => res.json(updatedPostData))
+  //   .catch(err => {
+  //     console.log(err);
+  //     res.status(400).json(err);
+  //   });
+
+  //received from front end login (session token w/ user id info), session object sent back to front-end from the server (no memory) 
+  if (req.session) {
+    // pass session id along with all destructured properties on req.body
+    //create new record in vote table (upvote)
+    Post.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
+      .then(updatedVoteData => res.json(updatedVoteData))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
 });
 
 //find id, alter instance of title associated with id

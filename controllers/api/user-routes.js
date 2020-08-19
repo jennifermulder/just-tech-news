@@ -101,15 +101,17 @@ router.post('/login', (req, res) => {
       res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
-
+    //check password from database
     const validPassword = dbUserData.checkPassword(req.body.password);
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect password!' });
       return;
     }
-
+    //if password is valid/ found in database
     req.session.save(() => {
-      // declare session variables
+      // declare session variables(keys)
+      //session object
+      //session info sent to front end
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
