@@ -2,9 +2,13 @@ const express = require('express');
 const routes = require('./controllers/index.js');
 //importing sequelize connection that is in connection.js
 const sequelize = require('./config/connection');
+
 //setup handlebars as template engine
 const exphbs = require('express-handlebars');
-const hbs = exphbs.create({});
+//helper function
+const helpers = require('./utils/helpers');
+const hbs = exphbs.create({ helpers });
+
 //make public folder available
 const path = require('path');
 
