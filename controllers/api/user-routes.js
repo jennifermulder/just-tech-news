@@ -2,6 +2,7 @@
 const router = require('express').Router();
 //destructure user, post, and vote from models that were imported
 const { User, Post, Vote, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // GET accessible at: /api/users
 router.get('/', (req, res) => {
@@ -69,7 +70,7 @@ router.get('/:id', (req, res) => {
   (username, email, password)
 VALUES
   ("Lernantino", "lernantino@gmail.com", "password1234"); */
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
   User.create({
     //use key/value pairs that are defined in the User model
@@ -161,7 +162,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DELETE /api/users/1
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   User.destroy({
     where: {
       id: req.params.id

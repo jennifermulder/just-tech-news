@@ -43,7 +43,8 @@ async function loginFormHandler(event) {
     });
 
     if (response.ok) {
-      document.location.replace('/');
+      //when the user logs in they are automatically redirected
+      document.location.replace('/dashboard');
     } else {
       alert(response.statusText);
     }
